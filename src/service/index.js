@@ -1,13 +1,47 @@
-import dotenv from 'dotenv'
 import axios from 'axios';
-const env = dotenv.config().parsed;
+const TIMEOUT = 1000
+const API_URL = process.env.REACT_APP_API_URL
 
-const {API_URL} = env || ''
-
-const serviceList = {
-  getUser: '/api/users?page=2'
+export const list = {
+  getUser: '/api/users'
 }
 
-const theCall = () => {
-  
+export const call = (obj) => {
+   const {
+      url, 
+      method,
+      header,
+      data
+   } = obj
+   const GETHeader = (obj = {}) => {
+      const headers = {
+        Accept: 'application/json',
+        'Authorization': 'monyet',
+        ...obj,
+      };
+    
+      return headers;
+    };
+    
+    const POSTHeader = (obj = {}) => {
+      let headers = {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        ...obj,
+      };
+      return headers;
+    };
+
+   const theHeader = method === 'get' ? GETHeader(header) : POSTHeader(header)
+
+   const instance = axios.create().request({
+      baseURL: `${API_URL}${url}`,
+      timeout: TIMEOUT,
+      headers: theHeader,
+      method: method,
+      data,
+      responseType: 'json'
+    });
+    
+    return instance.then(e => e)
 }
