@@ -8,7 +8,8 @@ import {
 
 export default class App extends Component {
   async componentDidMount() {
-    getTheUser().then(e => console.log(e))
+    const theUser = await getTheUser()
+    console.log({theUser})
   }
   render() {
     return (
