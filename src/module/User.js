@@ -6,6 +6,12 @@ import {
 export const getTheUser = () => {
    return call({
       url: list.getUser,
-      method: 'get'
-   })
+      method: 'get',
+      data: {
+         kok: 123
+      },
+      header: {
+         'Authorization': 'Bearer asdkoaskda'
+      }
+   }).then(e => e)
 }

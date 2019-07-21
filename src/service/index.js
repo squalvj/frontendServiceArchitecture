@@ -13,10 +13,10 @@ export const call = (obj) => {
       header,
       data
    } = obj
+
    const GETHeader = (obj = {}) => {
       const headers = {
         Accept: 'application/json',
-        'Authorization': 'monyet',
         ...obj,
       };
     
@@ -33,15 +33,32 @@ export const call = (obj) => {
     };
 
    const theHeader = method === 'get' ? GETHeader(header) : POSTHeader(header)
-
-   const instance = axios.create().request({
+   let instance = axios.create({
       baseURL: `${API_URL}${url}`,
       timeout: TIMEOUT,
       headers: theHeader,
       method: method,
       data,
       responseType: 'json'
-    });
+    })
+
+   // Add a request interceptor
+   instance.interceptors.request.use(reqIntersceptor);
+
+// Add a response interceptor
+   instance.interceptors.response.use(resIntersceptor);
     
-    return instance.then(e => e)
+    
+    
+    return instance.request();
+}
+
+const reqIntersceptor = config => {
+   //   
+   return config
+}
+
+const resIntersceptor = response => {
+   console.log({response: response})
+   return response
 }
