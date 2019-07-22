@@ -46,7 +46,7 @@ const handleUserError = res => {
    // THIS IS CUSTOM ERROR HANDLING
    // FOR EXAMPLE IF BACKEND SEND SPECIAL PROPERTY SOMETHING...
    // THEN DO SOMETHING...
-   
-   alert('THIS IS CUSTOM ERROR')
-   return Promise.reject()
+   console.log({res})
+   // alert('THIS IS CUSTOM ERROR')
+   return res
 }

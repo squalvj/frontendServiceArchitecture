@@ -11,14 +11,12 @@ import {
 
 export default class App extends Component {
   async componentDidMount() {
-    getTheUser().then(e => console.log({wow: e}))
-    getTheUserById(12).then(e => console.log({user: e}))
+    // getTheUser().then(e => console.log({wow: e}))
+    // getTheUserById(12).then(e => console.log({user: e}))
     testCustomErrorHandling({
       name: 'tampan',
       job: 'driver'
-    }).then(e => {
-      console.log({e})
-    })
+    }).then(e => console.log(e))
   }
   render() {
     return (
