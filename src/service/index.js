@@ -36,21 +36,21 @@ export const call = (obj, errHandling = false) => {
    let instance = axios.create()
 
    // useful for custom error handling
-   const theErroHandling = !!errHandling ? errHandling : resIntersceptor
+   const theResHandling = !!errHandling ? errHandling : resIntersceptor
 
    // Add a request interceptor
    instance.interceptors.request.use(config => reqInterceptor(config, cancel), interceptReqErr);
 
    // Add a response interceptor
-   instance.interceptors.response.use(theErroHandling, interceptResErr);
+   instance.interceptors.response.use(theResHandling, interceptResErr);
    
    return instance.request(config).then(theHandler).catch(e => e)
 }
 
-const theHandler = (res, err) => {
+const theHandler = res => {
    // CHECKING LOGIC FROM DOWNSTREAM IF YOU 
    // HAVE SOME ERROR CODE STRUCTURE
-   if (res){
+   if (res && res.error === 1){
       // GENERIC ERROR BACKEND, OR DO ANY GENERIC ERROR YOU PLANNING TO
       alert('Backend generic error')
       return Promise.reject();
