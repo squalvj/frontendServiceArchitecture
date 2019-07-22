@@ -40,7 +40,7 @@ export const call = (obj, errHandling = false) => {
    }
 
    const theHeader = mapHeader[method];
-   let instance = axios.create({
+   const config = {
       baseURL: `${API_URL}${url}`,
       timeout: TIMEOUT,
       headers: theHeader,
@@ -50,7 +50,8 @@ export const call = (obj, errHandling = false) => {
       cancelToken: new CancelToken(function (c) {
          cancel = c
       })
-    })
+   }
+   let instance = axios.create()
 
    // useful for custom error hadnling
    const theErroHandling = !!errHandling ? errHandling : resIntersceptor
@@ -61,7 +62,7 @@ export const call = (obj, errHandling = false) => {
    // Add a response interceptor
    instance.interceptors.response.use(theErroHandling, interceptResErr);
    
-   return instance.request().then(theHandler);
+   return instance.request(config).then(theHandler);
 }
 
 const theHandler = (res, err) => {

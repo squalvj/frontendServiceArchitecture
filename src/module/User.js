@@ -8,12 +8,31 @@ export const getTheUser = () => {
       {
          url: list.getUser,
          method: 'get',
-         data: {
-            kok: 123
-         },
          header: {
             'Authorization': 'Bearer asdkoaskda'
          }
+      }
+   )
+}
+
+export const getTheUserById = id => {
+   return call(
+      {
+         url: `${list.getUser}/${id}`,
+         method: 'get',
+         header: {
+            'Authorization': 'Bearer asdkoaskda'
+         }
+      }
+   )
+}
+
+export const createUser = (obj) => {
+   return call(
+      {
+         url: list.getUser,
+         method: 'post',
+         data: obj
       }
    )
 }
