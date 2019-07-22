@@ -11,11 +11,11 @@ import {
 
 export default class App extends Component {
   async componentDidMount() {
-    // getTheUser().then(e => console.log({wow: e}))
-    // getTheUserById(12).then(e => console.log({user: e}))
+    getTheUser().then(e => console.log({wow: e}))
+    getTheUserById(12).then(e => console.log({user: e}))
     testCustomErrorHandling({
       name: 'tampan',
-      job: 'monyet'
+      job: 'driver'
     }).then(e => {
       console.log({e})
     })

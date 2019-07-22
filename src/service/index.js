@@ -1,6 +1,6 @@
 import axios from 'axios';
 import apiList from './list'
-const TIMEOUT = 10000
+const TIMEOUT = 20000 //20 sec
 const API_URL = process.env.REACT_APP_API_URL
 const isDev = process.env.NODE_ENV === 'development'
 
@@ -16,30 +16,12 @@ export const call = (obj, errHandling = false) => {
    const CancelToken = axios.CancelToken;
    let cancel;
 
-   const GETHeader = (obj = {}) => {
-      const headers = {
-         Accept: 'application/json',
-         ...obj,
-      };
-
-      return headers;
+   const theHeader = {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      ...header
    };
-    
-   const POSTHeader = (obj = {}) => {
-      let headers = {
-         Accept: 'application/json',
-         'Content-Type': 'application/json',
-         ...obj,
-      };
-      return headers;
-   };
-
-   const mapHeader = {
-      get: GETHeader(header),
-      post: POSTHeader(header)
-   }
-
-   const theHeader = mapHeader[method];
+   
    const config = {
       baseURL: `${API_URL}${url}`,
       timeout: TIMEOUT,
@@ -53,7 +35,7 @@ export const call = (obj, errHandling = false) => {
    }
    let instance = axios.create()
 
-   // useful for custom error hadnling
+   // useful for custom error handling
    const theErroHandling = !!errHandling ? errHandling : resIntersceptor
 
    // Add a request interceptor
@@ -66,7 +48,6 @@ export const call = (obj, errHandling = false) => {
 }
 
 const theHandler = (res, err) => {
-
    // CHECKING LOGIC FROM DOWNSTREAM IF YOU 
    // HAVE SOME ERROR CODE STRUCTURE
    if (res.error === 1 || err){
@@ -80,8 +61,8 @@ const theHandler = (res, err) => {
 
 // ---------------------- REQUEST INTERCEPTOR ----------------------
 const reqInterceptor = (config, cancel) => {
-   //do checking session or checking you app version is lower than backend, to cancel any request being triggered...
-   // or any condition that require to canceling the request
+   // do checking if necessary, to cancel the request being fired
+
    // cancel() for canceling the request
    return config
 }
@@ -99,7 +80,7 @@ const resIntersceptor = response => {
    return response.data
 }
 
-// GENERIC ERROR RESPPONSE HANDLING
+// GENERIC ERROR RESPPONSE HANDLING, E.G NO INTERNET
 const interceptResErr = error => {
    alert(error)
    return Promise.reject();
