@@ -36,3 +36,23 @@ export const createUser = (obj) => {
       }
    )
 }
+
+export const testCustomErrorHandling = (obj) => {
+   return call(
+      {
+         url: list.getUser,
+         method: 'post',
+         data: obj
+      },
+      handleUserError
+   )
+}
+
+const handleUserError = res => {
+   // THIS IS CUSTOM ERROR HANDLING
+   // FOR EXAMPLE IF BACKEND SEND SPECIAL PROPERTY SOMETHING...
+   // THEN DO SOMETHING...
+   
+   alert('THIS IS CUSTOM ERROR')
+   return Promise.reject()
+}
