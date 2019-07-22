@@ -4,14 +4,16 @@ import {
 } from './../service/index'
 
 export const getTheUser = () => {
-   return call({
-      url: list.getUser,
-      method: 'get',
-      data: {
-         kok: 123
-      },
-      header: {
-         'Authorization': 'Bearer asdkoaskda'
+   return call(
+      {
+         url: list.getUser,
+         method: 'get',
+         data: {
+            kok: 123
+         },
+         header: {
+            'Authorization': 'Bearer asdkoaskda'
+         }
       }
-   }).then(e => e)
+   )
 }

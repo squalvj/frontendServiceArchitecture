@@ -8,8 +8,7 @@ import {
 
 export default class App extends Component {
   async componentDidMount() {
-    const theUser = await getTheUser()
-    console.log({theUser})
+    getTheUser().then(e => console.log({wow: e}))
   }
   render() {
     return (
